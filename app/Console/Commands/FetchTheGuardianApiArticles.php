@@ -61,7 +61,7 @@ class FetchTheGuardianApiArticles extends Command
                     'source_id' => $source->id,
                     'source_name' => 'The Guardian',
                     'category_id' => $category->id,
-                    'author' => $articleData['fields']['byline'],
+                    'author' => $articleData['fields']['byline'] ?? 'The Guardian',
                     'title' => $articleData['fields']['headline'],
                     'description' => $articleData['fields']['trailText'],
                     'url' => $articleData['webUrl'],
