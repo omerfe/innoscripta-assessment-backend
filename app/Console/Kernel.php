@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('app:fetch-news-api-articles')->daily()->at('10:00')->timezone('Europe/Istanbul');
-        $schedule->command('app:fetch-n-y-times-api-articles')->daily()->at('10:00')->timezone('Europe/Istanbul');
+        // $schedule->command('app:fetch-n-y-times-api-articles')->daily()->at('10:00')->timezone('Europe/Istanbul');
         $schedule->command('app:fetch-the-guardian-api-articles')->daily()->at('10:00')->timezone('Europe/Istanbul');
     }
 

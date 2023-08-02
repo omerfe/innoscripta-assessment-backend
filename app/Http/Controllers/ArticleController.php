@@ -5,12 +5,39 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Article::select('id', 'title', 'description', 'author', 'published_at', 'url_to_image')->get();
+        $query = Article::select('id', 'title', 'description', 'author', 'published_at', 'url_to_image');
+
+        // Sorting
+        if ($request->has('sort_by')) {
+            $sortField = $request->input('sort_by');
+            $sortOrder = $request->input('sort_dir', 'asc'); // Default to ascending if not specified
+            $query->orderBy($sortField, $sortOrder);
+        }
+
+        // Filtering
+        if ($request->has('source')) {
+            $query->where('source_name', $request->input('source'));
+        }
+
+        if ($request->has('category')) {
+            $query->where('category_id', $request->input('category'));
+        }
+
+        if ($request->has('author')) {
+            $query->where('author', 'like', '%' . $request->input('author') . '%');
+        }
+
+        // Pagination
+        $perPage = $request->input('per_page', 10); // Default to 10 items per page
+        $articles = $query->paginate($perPage);
+
+        return $articles;
     }
 
     public function show($id)
