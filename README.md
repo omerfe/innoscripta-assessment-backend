@@ -1,66 +1,69 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# All The News - Backend
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is the backend repository for the "All The News" project, a news aggregation and browsing platform. The backend is built using the Laravel PHP framework and provides API endpoints to interact with news articles, sources, categories, and user-related data.
 
-## About Laravel
+## Project Overview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The "All The News" project aims to provide users with a centralized platform to browse and discover news articles from various sources. The backend is responsible for handling data storage, retrieval, and user authentication. It communicates with the frontend, built with Next.js 13, to provide a seamless user experience.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Live URLs
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   Backend Laravel Project Live URL: [https://innoscripta-assessment-backend-production.up.railway.app/](https://innoscripta-assessment-backend-production.up.railway.app/)
+-   Next.js 13 Frontend Project Live URL: [https://innoscripta-assessment-frontend.vercel.app/](https://innoscripta-assessment-frontend.vercel.app/)
 
-## Learning Laravel
+## How to Run the Backend Locally
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+To run the backend locally, follow these steps:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Prerequisites
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Ensure you have Docker installed on your machine.
 
-## Laravel Sponsors
+### Setup
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+1. Clone this repository to your local machine.
 
-### Premium Partners
+```bash
+git clone <backend-repo-url>
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+2. Checkout to the "docker-build" branch to access the Docker files. (The "main" branch doesn't contain the Docker files because Railway had problems building the Docker image. Instead it uses nixpacks.)
 
-## Contributing
+```bash
+git checkout docker-build
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. Fill in the required env variables in the .env file. I've attached the required local .env file in the email since it has sensitive information and the repo is public.
+<br>
 
-## Code of Conduct
+4. In the root directory of the backend project, run the setup.sh script to build and start the Docker containers.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+bash setup.sh
+```
 
-## Security Vulnerabilities
+5. Once the setup is complete, you can access the backend API at http://localhost. The API endpoints are exposed at http://localhost/api.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## API Endpoints
 
-## License
+The backend provides the following API endpoints to interact with the data:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+-   /api/articles: Retrieve a list of news articles.
+-   /api/articles/{id}: Retrieve a single news article by its ID.
+-   /api/sources: Retrieve a list of news sources.
+-   /api/categories: Retrieve a list of news categories.
+-   /api/register: Register a new user account.
+-   /api/login: Authenticate and log in a user.
+-   /api/user: Get the authenticated user's information.
+-   /api/articles/{id}/favorites: Get the list of articles favorited by the user.
+-   /api/categories/{id}/favorites: Get the list of categories favorited by the user.
+
+## Database Schema
+
+The backend uses a MySQL database to store articles, sources, categories, and user-related data. The database credentials can be configured via environment variables.
+
+## Scheduled tasks and content scraping
+
+The backend uses Laravel's task scheduling feature to scrape news articles from various sources and store them in the database. The scraping is done using the Symfony Browser kit component. The scraping tasks are scheduled to run every day. The scraping tasks can be found in the app/Console/Commands directory.
+
+Thank you for your interest in "All The News"!
