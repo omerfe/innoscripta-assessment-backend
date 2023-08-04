@@ -1,0 +1,2 @@
+[start]
+cmd = "chmod ugo+rwx /app/public && perl /assets/prestart.pl /assets/nginx.template.conf /nginx.conf && (php-fpm -y {} & nginx -c /nginx.conf)"
