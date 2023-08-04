@@ -1,7 +1,0 @@
-.git
-.env
-.env.*
-vendor
-/storage
-/tests
-.phpunit.result.cache
