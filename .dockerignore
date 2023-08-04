@@ -2,7 +2,6 @@
 .env
 .env.*
 vendor
-/public
 /storage
 /tests
 .phpunit.result.cache
